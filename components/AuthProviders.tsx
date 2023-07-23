@@ -24,7 +24,6 @@ const AuthProviders = () => {
 
       console.log(res);
       
-
       setProviders(res);
     }
 
