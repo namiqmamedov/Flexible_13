@@ -1,4 +1,6 @@
 import './globals.css'
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 
 export const metadata = {
     title: 'Flexxible',
@@ -13,12 +15,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                Navbar
+                <Navbar/>
                 <main>
                    {children}
                 </main>
-                Footer
-                {children}
+                <Footer/>
             </body>
         </html>
     )
