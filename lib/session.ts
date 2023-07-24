@@ -75,7 +75,7 @@ export const authOptions: NextAuthOptions = {
                return false;
             }
         }
-    }
+    }   
 }
 
 export async function getCurrentUser() {
