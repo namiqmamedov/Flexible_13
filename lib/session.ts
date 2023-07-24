@@ -7,7 +7,6 @@ import {JWT} from 'next-auth/jwt'
 import { SessionInterface, UserProfile } from '@/common.types'
 import { createUser, getUser } from './actions'
 
-type AdapterUser = typeof AdapterUser
     
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -16,14 +15,23 @@ export const authOptions: NextAuthOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!
         })
     ],
-    // jwt: {
-    //     encode: ({secret,token}) => {
+    jwt: {
+        encode: ({secret,token}) => {
+            const encodedToken = jsonwebtoken.sign({
+                ...token,
+                iss: 'grafbase',
+                exp: Math.floor(Date.now() / 1000) + 60 * 60
+            }, secret)
 
-    //     },
-    //     decode: async ({secret,token}) => {
+            return encodedToken;
+        },
+        decode: async ({secret,token}) => {
+            const decodedToken =
+                jsonwebtoken.verify(token!,secret) as JWT;
 
-    //     }
-    // },
+                return decodedToken
+        }
+    },
     theme: {
         colorScheme: 'light',
         logo: '/logo.png'
