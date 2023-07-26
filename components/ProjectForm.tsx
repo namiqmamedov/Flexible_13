@@ -7,12 +7,15 @@ import { useRouter } from 'next/navigation';
 import FormField from './FormField';
 
 import { FormState, ProjectInterface, SessionInterface } from '@/common.types';
+import CustomMenu from './CustomMenu';
+import { categoryFilters } from '@/constants';
 
 type Props = {
     type: string,
     session: SessionInterface,
     project?: ProjectInterface
 }
+
 
 const ProjectForm = ({ type, session, project }: Props) => {
     const router = useRouter()
@@ -92,6 +95,13 @@ const ProjectForm = ({ type, session, project }: Props) => {
                 state={form.githubUrl}
                 placeholder="https://github.com/namiqmamedov"
                 setState={(value) => handleStateChange('githubUrl', value)}
+            />
+
+            <CustomMenu
+                title="Category"
+                state={form.category}
+                filters={categoryFilters}
+                setState={(value) => handleStateChange('category', value)}
             />
 
             <div className="flexStart w-full">
