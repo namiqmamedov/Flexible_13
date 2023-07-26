@@ -9,6 +9,8 @@ import FormField from './FormField';
 import { FormState, ProjectInterface, SessionInterface } from '@/common.types';
 import CustomMenu from './CustomMenu';
 import { categoryFilters } from '@/constants';
+import Button from './Button';
+import { createNewProject, fetchToken } from '@/lib/actions';
 
 type Props = {
     type: string,
@@ -21,6 +23,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
     const router = useRouter()
 
     const [submitting, setSubmitting] = useState<boolean>(false);
+    
     const [form, setForm] = useState<FormState>({
         title: project?.title || "",
         description: project?.description || "",
@@ -31,16 +34,53 @@ const ProjectForm = ({ type, session, project }: Props) => {
     })
 
     const handleStateChange = (fieldName: keyof FormState, value: string) => {
-        setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
+        // setForm((prevForm) => ({ ...prevForm, [fieldName]: value }));
+        setForm((prevForm) => ({
+            ...prevForm, [fieldName]: value
+        }))
     };
 
     const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
 
+        const file = e.target.files?.[0];
+
+        if(!file) return;
+
+        if(!file.type.includes('image')) {
+            return alert('Please upload an image file');
+        }
+
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+        reader.onload = () => {
+            const result = reader.result as string;
+
+            handleStateChange('image', result);
+        }
     };
 
-    const handleFormSubmit = async (e: FormEvent) => {
+    const handleFormSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
 
-    }
+        setSubmitting(true);
+
+        const {token} = await fetchToken();
+
+        try {
+            if(type === 'create') {
+                await createNewProject(form,session?.user?.id,token)
+
+                router.push('/')
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setSubmitting(false);
+        }
+    }   
 
     return (
         <form
@@ -105,7 +145,12 @@ const ProjectForm = ({ type, session, project }: Props) => {
             />
 
             <div className="flexStart w-full">
-              <button>Create</button>
+              <Button
+                title={submitting ? `${type === "create" ? "Creating" : "Editing"}` : `${type === "create" ? "Create" : "Edit"}`}
+                type="submit"
+                leftIcon={submitting ? "" : '/plus.svg'}
+                submitting={submitting}
+              />
             </div>
 
 
