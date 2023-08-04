@@ -4,11 +4,11 @@ import { createProjectMutation, createUserMutation, deleteProjectMutation, updat
 import { ProjectForm } from "@/common.types";
 
 // const isProduction = process.env.NODE_ENV === 'production';
-const apiUrl = process.env.NEXT_PUBLIC_GRAFBASE_API_URL;
-const apiKey = process.env.NEXT_PUBLIC_GRAFBASE_API_KEY;
-const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+const apiUrl =  'http://127.0.0.1:4000/graphql';
+const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTAxMjY5NTUsImlzcyI6ImdyYWZiYXNlIiwiYXVkIjoiMDFINjFQTkQ3VlhYRVFGUUVISE1YODE5MUciLCJqdGkiOiIwMUg2MVBOREJHUDJTWjY3UVg4SzRRODkxUSIsImVudiI6InByb2R1Y3Rpb24iLCJwdXJwb3NlIjoicHJvamVjdC1hcGkta2V5In0.FCAkOqk0nWsk-eROk-AmzLBAUl7t8mSQNHO8IxT9wx8';
+const serverUrl =  'http://localhost:3000';
 
-const client = new GraphQLClient(apiUrl!);
+const client = new GraphQLClient(apiUrl);
 
 export const fetchToken = async () => {
   try {
@@ -42,7 +42,7 @@ const makeGraphQLRequest = async (query: string, variables = {}) => {
 };
 
 export const fetchAllProjects = (category?: string | null, endcursor?: string | null) => {
-  client.setHeader("x-api-key", apiKey!);
+  client.setHeader("x-api-key", apiKey);
 
   return makeGraphQLRequest(projectsQuery, { category, endcursor });
 };
@@ -101,12 +101,12 @@ export const deleteProject = (id: string, token: string) => {
 };
 
 export const getProjectDetails = (id: string) => {
-  client.setHeader("x-api-key", apiKey!);
+  client.setHeader("x-api-key", apiKey);
   return makeGraphQLRequest(getProjectByIdQuery, { id });
 };
 
 export const createUser = (name: string, email: string, avatarUrl: string) => {
-  client.setHeader("x-api-key", apiKey!);
+  client.setHeader("x-api-key", apiKey);
 
   const variables = {
     input: {
@@ -120,11 +120,11 @@ export const createUser = (name: string, email: string, avatarUrl: string) => {
 };
 
 export const getUserProjects = (id: string, last?: number) => {
-  client.setHeader("x-api-key", apiKey!);
+  client.setHeader("x-api-key", apiKey);
   return makeGraphQLRequest(getProjectsOfUserQuery, { id, last });
 };
 
 export const getUser = (email: string) => {
-  client.setHeader("x-api-key", apiKey!);
+  client.setHeader("x-api-key", apiKey);
   return makeGraphQLRequest(getUserQuery, { email });
 };
