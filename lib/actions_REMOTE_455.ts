@@ -5,11 +5,7 @@ import { ProjectForm } from "@/common.types";
 
 const isProduction = process.env.NODE_ENV === 'production';
 const apiUrl = isProduction ? process.env.NEXT_PUBLIC_GRAFBASE_API_URL || '' : 'http://127.0.0.1:4000/graphql';
-<<<<<<< HEAD
-const apiKey = isProduction ? process.env.NEXT_PUBLIC_GRAFBASE_API_KEY || '' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTAxMjY5NTUsImlzcyI6ImdyYWZiYXNlIiwiYXVkIjoiMDFINjFQTkQ3VlhYRVFGUUVISE1YODE5MUciLCJqdGkiOiIwMUg2MVBOREJHUDJTWjY3UVg4SzRRODkxUSIsImVudiI6InByb2R1Y3Rpb24iLCJwdXJwb3NlIjoicHJvamVjdC1hcGkta2V5In0.FCAkOqk0nWsk-eROk-AmzLBAUl7t8mSQNHO8IxT9wx8';
-=======
 const apiKey = isProduction ? process.env.NEXT_PUBLIC_GRAFBASE_API_KEY || '' : 'letmein';
->>>>>>> ccfa40bf60a7abc2f669a4c67de120fcdfd82ef6
 const serverUrl = isProduction ? process.env.NEXT_PUBLIC_SERVER_URL : 'http://localhost:3000';
 
 const client = new GraphQLClient(apiUrl);
