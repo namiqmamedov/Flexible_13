@@ -42,7 +42,7 @@ const makeGraphQLRequest = async (query: string, variables = {}) => {
 };
 
 export const fetchAllProjects = (category?: string | null, endcursor?: string | null) => {
-  client.setHeader("x-api-key", apiKey);
+  client.setHeader("x-api-key", apiKey!);
 
   return makeGraphQLRequest(projectsQuery, { category, endcursor });
 };
@@ -101,12 +101,12 @@ export const deleteProject = (id: string, token: string) => {
 };
 
 export const getProjectDetails = (id: string) => {
-  client.setHeader("x-api-key", apiKey);
+  client.setHeader("x-api-key", apiKey!);
   return makeGraphQLRequest(getProjectByIdQuery, { id });
 };
 
 export const createUser = (name: string, email: string, avatarUrl: string) => {
-  client.setHeader("x-api-key", apiKey);
+  client.setHeader("x-api-key", apiKey!);
 
   const variables = {
     input: {
@@ -120,11 +120,11 @@ export const createUser = (name: string, email: string, avatarUrl: string) => {
 };
 
 export const getUserProjects = (id: string, last?: number) => {
-  client.setHeader("x-api-key", apiKey);
+  client.setHeader("x-api-key", apiKey!);
   return makeGraphQLRequest(getProjectsOfUserQuery, { id, last });
 };
 
 export const getUser = (email: string) => {
-  client.setHeader("x-api-key", apiKey);
+  client.setHeader("x-api-key", apiKey!);
   return makeGraphQLRequest(getUserQuery, { email });
 };
