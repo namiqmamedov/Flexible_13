@@ -1,7 +1,7 @@
 import { ProjectInterface } from "@/common.types";
 import Categories from "@/components/Categories";
-import LoadMore from "@/components/LoadMore";
-import ProjectCard from "@/components/ProjectCard";
+// import LoadMore from "@/components/LoadMore";
+// import ProjectCard from "@/components/ProjectCard";
 import { fetchAllProjects } from "@/lib/actions";
 
 type SearchParams = {
@@ -34,7 +34,7 @@ const Home = async ({ searchParams: { category, endcursor } }: Props) => {
 
   const projectsToDisplay = data?.projectSearch?.edges || [];
 
-  if (projectsToDisplay.length === 0) {
+  if (projectsToDisplay?.length === 0) {
     return (
       <section className="flexStart flex-col paddings">
         <Categories />
