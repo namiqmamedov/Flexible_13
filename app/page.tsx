@@ -34,7 +34,7 @@ const Home = async ({ searchParams: { category, endcursor } }: Props) => {
 
   const projectsToDisplay = data?.projectSearch?.edges || [];
 
-  if (projectsToDisplay.length === 0) {
+  if (projectsToDisplay?.length === 0) {
     return (
       <section className="flexStart flex-col paddings">
         <Categories />
@@ -47,8 +47,7 @@ const Home = async ({ searchParams: { category, endcursor } }: Props) => {
   return (
     <section className="flexStart flex-col paddings mb-16">
       <Categories />
-
-      <section className="projects-grid">
+     <section className="projects-grid">
         {projectsToDisplay.map(({ node }: { node: ProjectInterface }) => (
           <ProjectCard
             key={`${node?.id}`}
@@ -67,7 +66,7 @@ const Home = async ({ searchParams: { category, endcursor } }: Props) => {
         endCursor={data?.projectSearch?.pageInfo?.endCursor} 
         hasPreviousPage={data?.projectSearch?.pageInfo?.hasPreviousPage} 
         hasNextPage={data?.projectSearch?.pageInfo.hasNextPage}
-      />
+      /> 
     </section>
   )
 };
